@@ -1,12 +1,22 @@
 import
   strformat,
-  strutils
+  strutils,
+  sequtils
 
-proc part_one(input: string): string =
-  "INCOMPLETE"
+proc part_one(input: openArray[int]): string =
+  for a in input:
+    for b in input:
+      if a + b == 2020:
+        return (a * b).intToStr
+  "No solution"
 
-proc part_two(input: string): string =
-  "INCOMPLETE"
+proc part_two(input: openArray[int]): string =
+  for a in input:
+    for b in input:
+      for c in input:
+        if a + b + c == 2020:
+          return (a * b * c).intToStr
+  "No solution"
 
 when isMainModule:
   echo "### DAY 01 ###"
@@ -17,8 +27,8 @@ when isMainModule:
   echo input
   echo "### END ###"
 
-  # do parsing here
+  let entries = input.splitLines(false).map(proc (s: string): int = s.parseInt)
 
-  echo(fmt"P1: {part_one(input)}")
-  echo(fmt"P2: {part_two(input)}")
+  echo(fmt"P1: {part_one(entries)}")
+  echo(fmt"P2: {part_two(entries)}")
 

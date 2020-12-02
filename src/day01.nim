@@ -1,4 +1,5 @@
 import
+  intsets,
   strformat,
   strutils,
   sequtils,
@@ -19,6 +20,28 @@ proc part_two(input: openArray[int]): string =
           return (a * b * c).intToStr
   "No solution"
 
+
+# Given the small input, the "naive" solution above was plenty fast enough, and simpler to write.
+# But for funzies, here are some n and n^2 solutions.
+proc part_one_faster(input: openArray[int]): string =
+  var seen = initIntSet()
+
+  for a in input:
+    if seen.contains(2020 - a):
+      return $(a * (2020 - a))
+    seen.incl(a)
+  "No solution"
+
+proc part_two_faster(input: openArray[int]): string =
+  var seen = initIntSet()
+
+  for a in input:
+    for b in input:
+      if seen.contains(2020 - a - b):
+        return $(a * b * (2020 - a - b))
+      seen.incl(b)
+  "No solution"
+
 when isMainModule:
   echo "### DAY 01 ###"
 
@@ -33,4 +56,10 @@ when isMainModule:
   benchmark:
     echo(fmt"P1: {part_one(entries)}")
     echo(fmt"P2: {part_two(entries)}")
+
+  echo ""
+
+  benchmark:
+    echo(fmt"P1: {part_one_faster(entries)}")
+    echo(fmt"P2: {part_two_faster(entries)}")
 

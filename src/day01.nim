@@ -1,7 +1,8 @@
 import
   strformat,
   strutils,
-  sequtils
+  sequtils,
+  aoc2020pkg/bench
 
 proc part_one(input: openArray[int]): string =
   for a in input:
@@ -29,6 +30,7 @@ when isMainModule:
 
   let entries = input.splitLines(false).map(proc (s: string): int = s.parseInt)
 
-  echo(fmt"P1: {part_one(entries)}")
-  echo(fmt"P2: {part_two(entries)}")
+  benchmark:
+    echo(fmt"P1: {part_one(entries)}")
+    echo(fmt"P2: {part_two(entries)}")
 

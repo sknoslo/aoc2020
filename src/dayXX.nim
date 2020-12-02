@@ -1,7 +1,8 @@
 ## Template File ##
 import
   strformat,
-  strutils
+  strutils,
+  aoc2020pkg/bench
 
 proc part_one(input: string): string =
   "INCOMPLETE"
@@ -20,5 +21,6 @@ when isMainModule:
 
   # do parsing here
 
-  echo(fmt"P1: {part_one(input)}")
-  echo(fmt"P2: {part_two(input)}")
+  benchmark:
+    echo(fmt"P1: {part_one(input)}")
+    echo(fmt"P2: {part_two(input)}")

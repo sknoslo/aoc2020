@@ -53,7 +53,7 @@ proc part_two(input: TreeMap): string =
   $product
 
 when isMainModule:
-  echo "### DAY 02 ###"
+  echo "### DAY 03 ###"
 
   let input = stdin.readAll.strip
 

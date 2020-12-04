@@ -4,10 +4,10 @@ import
   strutils,
   aoc2020pkg/bench
 
-proc part_one(input: string): string =
+proc partOne(input: string): string =
   "INCOMPLETE"
 
-proc part_two(input: string): string =
+proc partTwo(input: string): string =
   "INCOMPLETE"
 
 when isMainModule:
@@ -22,5 +22,5 @@ when isMainModule:
   # do parsing here
 
   benchmark:
-    echo(fmt"P1: {part_one(input)}")
-    echo(fmt"P2: {part_two(input)}")
+    echo(fmt"P1: {partOne(input)}")
+    echo(fmt"P2: {partTwo(input)}")

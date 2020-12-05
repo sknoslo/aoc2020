@@ -46,8 +46,20 @@ when isMainModule:
   echo input
   echo "### END ###"
 
-  let passes = input.splitLines
-
   benchmark:
+    let passes = input.splitLines
     echo(fmt"P1: {partOne(passes)}")
     echo(fmt"P2: {partTwo(passes)}")
+
+  # more clever solution... really not sure how I didn't see this before... I mean... soooo many hints in the puzzle
+  benchmark:
+    let
+      passes = input.multiReplace(("F", "0"), ("B", "1"), ("L", "0"), ("R", "1")).splitLines.map(parseBinInt).sorted
+      p1 = passes[^1]
+    var p2 = -1
+    for i in 1..<passes.len:
+      if passes[i] - passes[i - 1] == 2:
+        p2 = passes[i] - 1
+    echo "cleverererer (and maybe slightly faster) solution:"
+    echo(fmt"P1: {p1}")
+    echo(fmt"P2: {p2}")

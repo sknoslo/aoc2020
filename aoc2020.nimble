@@ -38,3 +38,4 @@ bin           = @["day01"
 
 requires "nim >= 1.4.0"
 requires "regex >= 0.18.0"
+requires "npeg >= 0.9.0"

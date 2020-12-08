@@ -3,10 +3,11 @@ import
   strutils,
   sequtils,
   sets,
-  aoc2020pkg/bench
+  aoc2020pkg/bench,
+  aoc2020pkg/handheld_v1
 
-type
-  Instruction = tuple[op: string, arg: int]
+# type
+#   Instruction = tuple[op: string, arg: int]
 
 proc getInst(s: string): Instruction =
   let parts = s.split(' ')
@@ -69,13 +70,14 @@ proc partTwo(orig: seq[Instruction]): string =
 when isMainModule:
   echo "### DAY 08 ###"
 
-  let input = stdin.readAll.strip
+  let input = stdin.readAll
 
   echo "### INPUT ###"
   echo input
   echo "### END ###"
 
-  let program = input.splitLines.map(getInst)
+  # let program = input.splitLines.map(getInst)
+  let program = parseProgram(input)
 
   benchmark:
     echo(fmt"P1: {partOne(program)}")

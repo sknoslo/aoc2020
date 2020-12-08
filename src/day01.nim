@@ -62,4 +62,3 @@ when isMainModule:
   benchmark:
     echo(fmt"P1: {part_one_faster(entries)}")
     echo(fmt"P2: {part_two_faster(entries)}")
-

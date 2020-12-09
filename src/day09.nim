@@ -45,7 +45,7 @@ proc partTwo(input: seq[int]): string =
       a += 1
 
 when isMainModule:
-  echo "### DAY 01 ###"
+  echo "### DAY 09 ###"
 
   let input = stdin.readAll.strip
 

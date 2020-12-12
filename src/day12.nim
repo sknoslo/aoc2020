@@ -38,21 +38,29 @@ proc turn(c: var char, d: char, u: int) =
   else: discard
 
 proc rotate(p: var Point, d: char, u: int) =
-  # who needs matrices anyway?
-  let i = u div 90
-  if i mod 2 == 1:
-    let t = p.x
-    p.x = p.y
-    p.y = t
-  const
-    cw = [(1, -1), (-1, -1), (-1, 1)]
-    ccw = [(-1, 1), (-1, -1), (1, -1)]
-  let (rx, ry) = if d == 'R':
-    cw[i - 1]
-  else:
-    ccw[i - 1]
-  p.x *= rx
-  p.y *= ry
+  for _ in 1..u div 90:
+    let tx = p.x
+    if d == 'R':
+      p.x = p.y
+      p.y = -tx
+    else:
+      p.x = -p.y
+      p.y = tx
+  # lol rushing to finish led to this monstrosity:
+  # let i = u div 90
+  # if i mod 2 == 1:
+  #   let t = p.x
+  #   p.x = p.y
+  #   p.y = t
+  # const
+  #   cw = [(1, -1), (-1, -1), (-1, 1)]
+  #   ccw = [(-1, 1), (-1, -1), (1, -1)]
+  # let (rx, ry) = if d == 'R':
+  #   cw[i - 1]
+  # else:
+  #   ccw[i - 1]
+  # p.x *= rx
+  # p.y *= ry
 
 proc partOne(input: seq[Inst]): string =
   var

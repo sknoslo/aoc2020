@@ -1,7 +1,6 @@
 import
   strformat,
   strutils,
-  algorithm,
   aoc2020pkg/bench
 
 type Bus = tuple[offset, id: int]
@@ -19,7 +18,18 @@ proc partOne(eta: int, buses: seq[Bus]): string =
   $(wait * id)
 
 proc partTwo(buses: seq[Bus]): string =
-  "INCOMPLETE"
+  # idea:
+  # iterate by first bus id A until finding a suitable time with the second id B, then iterate by B * A... and so on
+  var
+    t = 0
+    increment = buses[0].id
+    s = 1
+  while s < buses.len:
+    t += increment
+    if (t + buses[s].offset) mod buses[s].id == 0:
+      increment = increment * buses[s].id
+      s.inc
+  $t
 
 when isMainModule:
   echo "### DAY 13 ###"

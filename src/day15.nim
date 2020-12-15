@@ -7,11 +7,10 @@ import
 
 proc partOne(input: seq[int]): string =
   var
-    nums = input
     lookup: Table[int, int]
     turn = 0
-    last = nums[^1]
-  for num in nums:
+    last = input[^1]
+  for num in input:
     turn.inc
     lookup[num] = turn
   while turn < 2020:
@@ -21,18 +20,16 @@ proc partOne(input: seq[int]): string =
       last = turn - lastTurn
     else:
       last = 0
-    nums.add(last)
     turn.inc
   $last
 
 proc partTwo(input: seq[int]): string =
   const target = 30_000_000
   var
-    nums = input
     lookup: Table[int, int]
     turn = 0
-    last = nums[^1]
-  for num in nums:
+    last = input[^1]
+  for num in input:
     turn.inc
     lookup[num] = turn
   while turn < target:
@@ -42,7 +39,6 @@ proc partTwo(input: seq[int]): string =
       last = turn - lastTurn
     else:
       last = 0
-    nums.add(last)
     turn.inc
   $last
 

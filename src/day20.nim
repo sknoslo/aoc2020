@@ -8,10 +8,22 @@ import
 type
   Pic = object
     pixels: seq[char]
-    id, w, h: int
+    id, w, h, r: int
+    f: bool
 
-proc get(pic: Pic, x, y: int): char = pic.pixels[pic.w * y + x]
-proc set(pic: var Pic, x, y: int, c: char) = pic.pixels[pic.w * y + x] = c
+proc idx(pic: Pic, x, y: int): int =
+  var
+    nx = x
+    ny = y
+  for _ in 0..<pic.r:
+    let tmp = nx
+    nx = pic.w - ny - 1
+    ny = tmp
+  if pic.f:
+    nx = pic.w - nx - 1
+  pic.w * ny + nx
+proc get(pic: Pic, x, y: int): char =
+  pic.pixels[pic.idx(x, y)]
 
 proc `$`(pic: Pic): string =
   result = "Tile " & $pic.id & ":\p"
@@ -21,22 +33,10 @@ proc `$`(pic: Pic): string =
     result.add("\p")
 
 proc rot(pic: var Pic) =
-  var rotpic = pic
-  for y in 0..<pic.h:
-    for x in 0..<pic.w:
-      let
-        rotx = pic.w - y - 1
-        roty = x
-      rotpic.set(rotx, roty, pic.get(x, y))
-  pic = rotpic
+  pic.r = pic.r.succ mod 4
 
 proc flip(pic: var Pic) =
-  var flippic = pic
-  for y in 0..<pic.h:
-    for x in 0..<pic.w:
-      let flipx = pic.w - x - 1
-      flippic.set(flipx, y, pic.get(x, y))
-  pic = flippic
+  pic.f = not pic.f
 
 proc adjacentTo(a, b: Pic): bool =
   var
@@ -45,7 +45,12 @@ proc adjacentTo(a, b: Pic): bool =
   for _ in 1..2:
     for _ in 1..4:
       for _ in 1..4:
-        if a.pixels[0..<a.w] == b.pixels[0..<a.w]:
+        var match = true
+        for x in 0..<a.w:
+          if a.get(x, 0) != b.get(x, 0):
+            match = false
+            break
+        if match:
           return true
         b.rot
       a.rot
@@ -77,7 +82,7 @@ when isMainModule:
   echo "### INPUT ###"
   echo input
   echo "### END ###"
-  
+
   var
     pic: Pic
     pics: seq[Pic]
@@ -99,5 +104,8 @@ when isMainModule:
   doAssert parser.match(input).ok
 
   benchmark:
-    echo(fmt"P1: {partOne(pics)}")
+    let p1 = partOne(pics)
+    # for refactoring!
+    doAssert p1 == "15405893262491"
+    echo(fmt"P1: {p1}")
     echo(fmt"P2: {partTwo(input)}")
